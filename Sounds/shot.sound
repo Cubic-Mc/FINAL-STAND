@@ -1,0 +1,7 @@
+sound: "/Assets/Sounds/GunShotSnglShotIn PE1097906.wav"
+looping: 0
+group: "master"
+gain: 2.0
+pan: 0.0
+speed: 0.7
+loopcount: 0
