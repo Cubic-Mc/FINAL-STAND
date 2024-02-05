@@ -1,0 +1,18 @@
+function init(self)
+
+
+end
+
+function update(self)
+	local pos = go.get_position()
+	if pos.y > 640 then
+		go.delete()		
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") and message.enter then
+		go.delete()
+		particlefx.play("#bullet_death")
+	end
+end

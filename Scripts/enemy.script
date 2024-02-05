@@ -1,0 +1,19 @@
+function init(self)
+end
+
+function update(self, dt)
+	local pos = go.get_position()
+	if pos.y < 0 then
+		go.delete()
+		msg.post("interface#main", "minus")
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") and message.enter then
+		go.delete()
+		sound.play("#boom")
+		msg.post("interface#main", "plus")
+		local death = factory.create("#death_effect")
+	end
+end

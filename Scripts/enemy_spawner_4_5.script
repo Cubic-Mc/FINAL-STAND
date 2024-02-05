@@ -1,0 +1,81 @@
+require("Scripts.main")
+
+function init(self)
+	cruiser_timer = 0
+	dread_timer = 0
+	game2_timer = 0
+	math.randomseed(os.time())
+	spawner = true
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	if spawner == true then 
+		game2_timer = game2_timer + 1 * dt
+		dread_timer = dread_timer + 1 * dt
+		cruiser_timer = cruiser_timer + 1 * dt
+		if game1_timer > 120 then
+			if cruiser_timer >= 10 then
+				print("spawned fighter")
+				enemy1 = factory.create("#cruiser")
+				local enemy1position = go.get_position()
+				local to = enemy1position.y - 1000
+				go.animate(enemy1, "position.y", go.PLAYBACK_ONCE_FORWARD, to, go.EASING_LINEAR, 12)
+				cruiser_timer = 0
+			end
+		end
+		if game2_timer > 150 then
+			if dread_timer >= 15 then
+				print("spawned dread")
+				dread = factory.create("#dread")
+				local enemyposition1 = go.get_position()
+				local to = enemyposition1.y - 1000
+				go.animate(dread, "position.y", go.PLAYBACK_ONCE_FORWARD, to, go.EASING_LINEAR, 15)
+				dread_timer = 0
+			end
+		end
+		local currentpos1 = go.get_position()
+		currentpos1.x = math.random(20,940)
+		go.set_position(currentpos1)
+	end
+end
+
+function fixed_update(self, dt)
+	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
+	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
+	-- Physics section of game.project
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("stop") then
+		spawner = false
+		go.delete(enemy1)
+		go.delete(dread)
+	end
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here. The game object this script is attached to
+	-- must have acquired input focus:
+	--
+	--    msg.post(".", "acquire_input_focus")
+	--
+	-- All mapped input bindings will be received. Mouse and touch input will
+	-- be received regardless of where on the screen it happened.
+	-- Learn more: https://defold.com/manuals/input/
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end

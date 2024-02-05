@@ -1,0 +1,30 @@
+function init(self)
+	health1 = 15
+	math.randomseed(os.time())
+end
+
+function update(self, dt)
+	local pos = go.get_position()
+	if pos.y < 0 then
+		go.delete()
+		msg.post("interface#main", "minus15")
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") then
+		health1 = health1 - 1
+		--if health < 15/2 then
+			--go.set_
+		if math.ceil(health1) <= 0 then
+			sound.play("#big_boom")
+			msg.post("interface#main", "plus15")
+			local death = factory.create("#death")
+			--if math.random(1,5) == 3 then
+				--hp2 = factory.create("#hpdrop")
+			--end
+			go.delete()
+			health1 = 15
+		end
+	end
+end

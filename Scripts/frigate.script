@@ -1,0 +1,63 @@
+
+function init(self)
+	health3 = 2
+	math.randomseed(os.time())
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	local pos = go.get_position()
+	if pos.y < 0 then
+		go.delete()
+		msg.post("interface#main", "minus5")
+	end
+end
+
+function fixed_update(self, dt)
+	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
+	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
+	-- Physics section of game.project
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	print(hash(message_id))
+	if message_id == hash("trigger_response") then
+		health3 = health3 - 1
+		if math.ceil(health3) <= 0 then
+			sound.play("#boom")
+			msg.post("interface#main", "plus5")
+			local death = factory.create("#death")
+			--[[if math.random(1,2) == 1 then
+				hp1 = factory.create("#hpdrop")
+			end]]
+			go.delete()
+			health3 = 2
+		end
+	end
+end
+
+function on_input(self, action_id, action)
+	-- Add input-handling code here. The game object this script is attached to
+	-- must have acquired input focus:
+	--
+	--    msg.post(".", "acquire_input_focus")
+	--
+	-- All mapped input bindings will be received. Mouse and touch input will
+	-- be received regardless of where on the screen it happened.
+	-- Learn more: https://defold.com/manuals/input/
+	-- Remove this function if not needed
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Learn more: https://defold.com/manuals/hot-reload/
+	-- Remove this function if not needed
+end
