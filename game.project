@@ -1,0 +1,24 @@
+[bootstrap]
+main_collection = /main/main.collectionc
+
+[script]
+shared_state = 1
+
+[android]
+input_method = HiddenInputField
+
+[project]
+title = FINAL STAND
+publisher = CUBIC_MC (Param Joshi)
+developer = Param Joshi
+
+[sprite]
+max_count = 512
+
+[sound]
+max_sound_buffers = 200
+max_sound_data = 200
+max_sound_sources = 20
+max_sound_instances = 512
+max_component_count = 300
+
